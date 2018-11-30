@@ -1,0 +1,10 @@
+---
+# inventory file use by Vagrantfile
+# to create VM
+# could be use as a Ansible inventory file
+all:
+  children:
+    vmgroup:
+      hosts:
+        vm1:
+          box:

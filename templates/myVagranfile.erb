@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Require YAML module
+require 'yaml'
+ 
+# Read YAML file with box details
+inventory = YAML.load_file('inventory.yml')
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  inventory['all']['children']['vmgroup']['hosts'].each do |server,details|
+    config.vm.define server do |srv|
+      srv.vm.box = details['box']
+      srv.vm.hostname = server
+    end
+
+    # use same SSH key on all VM
+    config.ssh.insert_key = false
+
+    # Sync my git dir with /git 
+    config.vm.synced_folder "#{ENV['HOME']}/git", "/git"
+
+    # disable default rule
+    config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
+    
+    # set new rule
+    config.vm.network "forwarded_port", guest: 22, host: "#{ENV['VAGRANT_SSH_PORT'] || 2202 }", host_ip: "127.0.0.1", auto_correct: true
+    
+    ### provisionners
+
+    # sync time with host
+    config.vm.provision "shell", inline: "sudo rm /etc/localtime && sudo ln -s /usr/share/zoneinfo/#{ENV['TZ'] || 'Europe/Paris' } /etc/localtime", run: "always"
+
+    # permit root SSH access
+    config.vm.provision "ssh", type:"shell", inline: "sudo mkdir -p /root/.ssh && sudo cp /home/vagrant/.ssh/authorized_keys /root/.ssh/"
+  end
+end
