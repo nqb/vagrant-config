@@ -1,0 +1,11 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+docker_image = 'centos:latest'
+
+Vagrant.configure("2") do |config|
+  config.vm.provider "docker" do |d|
+    d.image = docker_image
+    d.has_ssh = true
+  end
+end
