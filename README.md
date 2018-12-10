@@ -1,7 +1,7 @@
 # vagrant-config
 My Vagrant config
 
-## Usage
+## VM Usage
 
 ``` shell
 ./create-new-env.sh ENVIRONMENT_NAME
@@ -25,3 +25,6 @@ vi inventory.yml
 
 vagrant up
 ```
+
+## Docker Usage
+
