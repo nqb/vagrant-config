@@ -9,3 +9,17 @@ Vagrant.configure("2") do |config|
     d.has_ssh = true
   end
 end
+
+# To use a VM with docker in place of docker in the host system
+# SSH config for the VM ?
+# Vagrant.configure("2") do |config|
+#   config.vm.provider "docker" do |d|
+#     d.image = docker_image
+#
+#     # force usage of a VM for Docker
+#     d.force_host_vm = true
+#
+#     # use custom_vagrantfile to start a new VM
+#     d.vagrant_vagrantfile = "VagrantfileVM"
+#   end
+# end
