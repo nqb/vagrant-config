@@ -1,6 +1,10 @@
 # vagrant-config
 My Vagrant config
 
+## TODO
+
+ * [ ] create a directory for running env and put in in `.gitignore`
+
 ## VM Usage
 
 ``` shell
