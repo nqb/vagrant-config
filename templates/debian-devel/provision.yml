@@ -1,0 +1,47 @@
+---
+- hosts: all
+  name: install debian devel environment
+  vars:
+    pkgs:
+      - build-essential
+      - pbuilder
+      - cowbuilder
+      - lintian
+      - bash
+      - mc
+      - vim
+      - ccache
+      - libeatmydata1
+      - make
+      - dh-make
+      - git-buildpackage
+      - debootstrap
+      - git
+      - debmake
+      - tmux
+      - tree
+      - quilt
+      - emacs
+      - debhelper
+    dotfiles:
+      - .gitconfig
+      - .quiltrc-dpkg
+      - .devscripts
+      - .gbp.conf
+      - gpg.conf # in ~/.gnupg
+      # - .bashrc
+
+  tasks:
+    - name: install packages
+      apt:
+        name: "{{ pkgs }}"
+        state: latest
+        update_cache: true
+
+# - install emacs and define editor variable
+# - scm_breeze
+# - add stretch backports before installing packages
+#   https://backports.debian.org/Instructions/
+#    - lintian, debhelper
+
+#    - name: copy .dotfiles

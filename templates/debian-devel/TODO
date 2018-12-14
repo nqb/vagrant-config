@@ -1,0 +1,4 @@
+- Create a GPG key
+- Symlink from /root/.pbuilderrc to /home/<user>/.pbuilderrc
+- Apt-cacher-ng
+- Rights on cache files

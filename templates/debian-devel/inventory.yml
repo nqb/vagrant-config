@@ -1,0 +1,11 @@
+---
+# inventory file use by Vagrantfile
+# to create VM
+# could be use as a Ansible inventory file
+all:
+  children:
+    vmgroup:
+      hosts:
+        debian-devel:
+          box: debian/stretch64
+          ssh_port: 3000
